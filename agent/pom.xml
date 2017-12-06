@@ -19,35 +19,44 @@
     <dependencies>
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
+            <artifactId>pinpoint-annotations</artifactId>
+            <version>${pinpoint.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.navercorp.pinpoint</groupId>
             <artifactId>pinpoint-profiler</artifactId>
             <version>${pinpoint.version}</version>
         </dependency>
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
-            <artifactId>pinpoint-profiler-optional-jdk6</artifactId>
+            <artifactId>pinpoint-profiler-test</artifactId>
             <version>${pinpoint.version}</version>
         </dependency>
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
-            <artifactId>pinpoint-profiler-optional-jdk7</artifactId>
+            <artifactId>pinpoint-profiler-optional</artifactId>
             <version>${pinpoint.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.navercorp.pinpoint</groupId>
-            <artifactId>pinpoint-profiler-optional-jdk8</artifactId>
-            <version>${pinpoint.version}</version>
+            <scope>runtime</scope>
+            <type>pom</type>
         </dependency>
 
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
             <artifactId>pinpoint-plugins</artifactId>
             <version>${pinpoint.version}</version>
-            <type>zip</type>
+            <type>pom</type>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
             <artifactId>plugin-sample-plugin</artifactId>
+            <version>${pinpoint.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.navercorp.pinpoint</groupId>
+            <artifactId>pinpoint-bootstrap-core-optional</artifactId>
             <version>${pinpoint.version}</version>
             <scope>runtime</scope>
         </dependency>
