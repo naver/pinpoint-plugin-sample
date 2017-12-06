@@ -14,14 +14,15 @@
  */
 package com.navercorp.pinpoint.plugin.sample._12_Asynchronous_Trace;
 
-import com.navercorp.pinpoint.bootstrap.async.AsyncTraceIdAccessor;
-import com.navercorp.pinpoint.bootstrap.context.AsyncTraceId;
+import com.navercorp.pinpoint.bootstrap.async.AsyncContextAccessor;
+import com.navercorp.pinpoint.bootstrap.context.AsyncContext;
 import com.navercorp.pinpoint.bootstrap.interceptor.AroundInterceptor2;
 import com.navercorp.pinpoint.bootstrap.interceptor.annotation.IgnoreMethod;
 import com.navercorp.pinpoint.bootstrap.interceptor.scope.InterceptorScope;
 
 /**
- * This interceptor get AsyncTraceId from interceptor scope invocation attachment and set it to the initializing object through AsyncTraceIdAccessor
+ * This interceptor retrieves <tt>AsyncContext</tt> from interceptor scope invocation attachment and sets it to
+ * <tt>this</tt> object through {@link AsyncContextAccessor}.
  */
 public class WorkerConstructorInterceptor implements AroundInterceptor2 {
     private final InterceptorScope scope;
@@ -38,7 +39,7 @@ public class WorkerConstructorInterceptor implements AroundInterceptor2 {
 
     @Override
     public void after(Object target, Object arg0, Object arg1, Object result, Throwable throwable) {
-        AsyncTraceId asyncTraceId = (AsyncTraceId)scope.getCurrentInvocation().getAttachment();
-        ((AsyncTraceIdAccessor)target)._$PINPOINT$_setAsyncTraceId(asyncTraceId);
+        AsyncContext asyncContext = (AsyncContext) scope.getCurrentInvocation().getAttachment();
+        ((AsyncContextAccessor) target)._$PINPOINT$_setAsyncContext(asyncContext);
     }
 }

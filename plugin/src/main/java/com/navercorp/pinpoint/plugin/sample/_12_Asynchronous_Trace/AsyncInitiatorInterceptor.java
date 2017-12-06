@@ -14,7 +14,7 @@
  */
 package com.navercorp.pinpoint.plugin.sample._12_Asynchronous_Trace;
 
-import com.navercorp.pinpoint.bootstrap.context.AsyncTraceId;
+import com.navercorp.pinpoint.bootstrap.context.AsyncContext;
 import com.navercorp.pinpoint.bootstrap.context.MethodDescriptor;
 import com.navercorp.pinpoint.bootstrap.context.SpanEventRecorder;
 import com.navercorp.pinpoint.bootstrap.context.Trace;
@@ -48,18 +48,15 @@ public class AsyncInitiatorInterceptor implements AroundInterceptor1 {
         recorder.recordServiceType(SamplePluginConstants.MY_SERVICE_TYPE);
         recorder.recordApi(descriptor, new Object[] { arg0 });
 
-        // To trace async invocations, you have to get async trace id like below.
-        AsyncTraceId asyncTraceId = trace.getAsyncTraceId();
+        // To trace async invocations, you have to create AsyncContext like below, automatically attaching it to the current span event.
+        AsyncContext asyncContext = recorder.recordNextAsyncContext();
         
-        // Then record the AsyncTraceId as next async id. 
-        recorder.recordNextAsyncId(asyncTraceId.getAsyncId());
-        
-        // Finally, you have to pass the AsyncTraceId to the thread which handles the async task.
-        // How to do that depends on the target library implementation.
+        // Finally, you have to pass the AsyncContext to the thread which handles the async task.
+        // How to do this depends on the target library implementation.
         // 
         // In this sample, we set the id as scope invocation attachment like below to pass it to the constructor interceptor of TargetClass12_Worker which has run() method that handles the async task.
-        // Then the constructor interceptor will get the attached id and set to the initializing TargetClass12_Worker object.
-        scope.getCurrentInvocation().setAttachment(asyncTraceId);
+        // Then the constructor interceptor will get the attached AsyncContext and set to the initializing TargetClass12_Worker object.
+        scope.getCurrentInvocation().setAttachment(asyncContext);
     }
 
     @Override
