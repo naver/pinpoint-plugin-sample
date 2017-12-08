@@ -25,9 +25,9 @@ import com.navercorp.pinpoint.bootstrap.interceptor.scope.InterceptorScopeInvoca
 import com.navercorp.pinpoint.plugin.sample.SamplePluginConstants;
 
 /**
- * This interceptor attach an object to current {@link InterceptorScopeInvocation}.
- * The attachment helps the interceptor collaborates with {@link InnerMethodInterceptor}.
- * 
+ * This interceptor attaches an object to the current {@link InterceptorScopeInvocation} to let
+ * {@link InnerMethodInterceptor} know if the current transaction is being traced and would need a return value.
+ *
  * @see Sample_04_Interceptors_In_A_Scope_Share_Value
  * @author Jongho Moon
  */

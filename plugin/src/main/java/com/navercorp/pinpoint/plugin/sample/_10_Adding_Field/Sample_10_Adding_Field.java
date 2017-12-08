@@ -27,9 +27,10 @@ import com.navercorp.plugin.sample.target.TargetClass10_Producer;
 /**
  * You can add a field to a class to attach some trace values.
  * 
- * In this sample, we are going to to trace {@link TargetClass10_Consumer#consume(TargetClass10_Message)} with the producer name.
- * But we can not retrieve the producer name in that method. 
- * So we intercept {@link TargetClass10_Producer#produce()} to inject producer name into the returning {@link TargetClass10_Message}. 
+ * In this sample, we are going to to trace {@link TargetClass10_Consumer#consume(TargetClass10_Message)} with the
+ * producer name. But since we can not retrieve the producer name in that method, we intercept
+ * {@link TargetClass10_Producer#produce()} to inject producer name into the returning {@link TargetClass10_Message}
+ * instance.
  */
 public class Sample_10_Adding_Field {
 

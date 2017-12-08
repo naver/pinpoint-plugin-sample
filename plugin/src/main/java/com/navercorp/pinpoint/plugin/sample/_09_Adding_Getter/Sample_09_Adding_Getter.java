@@ -22,8 +22,8 @@ import com.navercorp.pinpoint.bootstrap.instrument.Instrumentor;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformCallback;
 
 /**
- * Sometimes you need to get the value of a private field that is not exposed by the class.
- * In this case, you can add a getter to access to it.
+ * Sometimes you need access to the value of a private field that is not exposed by the class.
+ * You can add a getter to access to it for this.
  */
 public class Sample_09_Adding_Getter implements TransformCallback {
 

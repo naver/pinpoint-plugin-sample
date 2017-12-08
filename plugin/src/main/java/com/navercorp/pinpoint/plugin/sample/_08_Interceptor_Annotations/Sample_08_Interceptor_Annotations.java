@@ -24,17 +24,21 @@ import com.navercorp.pinpoint.bootstrap.interceptor.annotation.*;
 import com.navercorp.pinpoint.bootstrap.interceptor.annotation.Scope;
 
 /**
- * There are annotations for interceptor class to declare 1. targets of the interceptor, 2. interceptor scope the interceptor is in.
- * 
- * To specify target, use {@link TargetMethod}, {@link TargetConstructor}, {@link TargetFilter}.
- * To specify multiple targets, use {@link TargetMethods}, {@link TargetConstructors}.
- * Note that these are effective only when the interceptor is injected by one of {@link InstrumentClass}'s addInterceptor() or addScopedInterceptor() method.
- * 
+ * There are annotations for interceptor class to declare : interceptor target, and interceptor scope.
+ * <p>
+ * To specify a target, use {@link TargetMethod}, {@link TargetConstructor}, {@link TargetFilter}.<br/>
+ * To specify multiple targets, use {@link TargetMethods}, {@link TargetConstructors}.<br/>
+ * Note that these are effective only when the interceptor is injected by one of {@link InstrumentClass}'s
+ * <tt>addInterceptor()</tt> or <tt>addScopedInterceptor()</tt> method.
+ * <p>
  * To specify interceptor scope, use {@link Scope}.
  * If you pass other InterceptorScope through addScopedInterceptor(), the annotation will be ignored.
  * 
  * @see AnnotatedInterceptor
+ * @deprecated use the normal, non-annotated interceptors due to
+ *      <a href="https://github.com/naver/pinpoint/issues/2862">https://github.com/naver/pinpoint/issues/2862</a>
  */
+@Deprecated
 public class Sample_08_Interceptor_Annotations implements TransformCallback {
 
     @Override

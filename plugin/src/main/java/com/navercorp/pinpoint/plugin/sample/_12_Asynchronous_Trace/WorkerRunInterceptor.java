@@ -14,6 +14,7 @@
  */
 package com.navercorp.pinpoint.plugin.sample._12_Asynchronous_Trace;
 
+import com.navercorp.pinpoint.bootstrap.async.AsyncContextAccessor;
 import com.navercorp.pinpoint.bootstrap.context.AsyncContext;
 import com.navercorp.pinpoint.bootstrap.context.MethodDescriptor;
 import com.navercorp.pinpoint.bootstrap.context.SpanEventRecorder;
@@ -28,7 +29,7 @@ import com.navercorp.pinpoint.plugin.sample.SamplePluginConstants;
  * continuing traces beyond thread boundaries.
  * <br/>
  * {@link AsyncContextSpanEventSimpleAroundInterceptor} retrieves the {@link AsyncContext} from the target (this) object
- * via {@link com.navercorp.pinpoint.bootstrap.async.AsyncContextAccessor AsyncContextAccessor}.
+ * via {@link AsyncContextAccessor}.
  * Therefore the target class <strong>must</strong> be transformed to be an instance of <tt>AsyncContextAccessor</tt>
  * and have the <tt>AsyncContext</tt> field.
  * <br/>

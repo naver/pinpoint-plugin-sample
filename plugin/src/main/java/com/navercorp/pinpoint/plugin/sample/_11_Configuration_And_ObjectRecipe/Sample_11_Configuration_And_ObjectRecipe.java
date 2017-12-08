@@ -25,16 +25,18 @@ import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformCallback
 import com.navercorp.pinpoint.bootstrap.plugin.ObjectFactory;
 
 /**
- * ProfilerPlugin and PinpointClassFileTransformer implementation classes are loaded by a plugin class loader whose parent is system class loader when Pinpoint agent is initialized. 
- * But interceptor classes are loaded by the class loader which loads the target class. These target class loaders cannot see the plugin class loader.
- * 
- * Therefore for a class X in a plugin, X in ProfilerPlugin and PinpointClassFileTransformer implementations is not identical with X in interceptors. 
- * This makes it impossible for a transformer to pass a constructor argument whose type is defined in the plugin to a interceptor. 
+ * ProfilerPlugin and PinpointClassFileTransformer implementation classes are loaded by a plugin class loader whose
+ * parent is the system class loader when Pinpoint agent is initialized. However, interceptor classes are loaded by the
+ * class loader which loads the actual target class, and these target class loaders cannot see the plugin classloader.
+ * <p>
+ * Therefore for a class X in a plugin, X in ProfilerPlugin and PinpointClassFileTransformer implementations and X in
+ * interceptor implementations are different. This makes it impossible for a transformer to pass an object whose type is defined in the plugin to a interceptor as
+ * it's constructor argument.
+ * <p>
  * To handle this problem, you can pass an {@link ObjectFactory} which describes how to create the argument.
- * 
+ * <p>
  * Note that, for the same reason, you should avoid sharing values by static variables of classes defined in a plugin.
- * 
- * 
+ * <p>
  * This sample also shows how to read configurations in pinpoint.config file via {@link ProfilerConfig}.
  */
 public class Sample_11_Configuration_And_ObjectRecipe implements TransformCallback {

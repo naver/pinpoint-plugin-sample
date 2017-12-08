@@ -32,11 +32,14 @@ import com.navercorp.plugin.sample.target.TargetClass04;
 
 /**
  *  We want to trace {@link TargetClass04#outerMethod(java.lang.String)} when it's argument starts with "FOO". 
- *  In addition, we want to record the return value of {@link TargetClass04#innerMethod(java.lang.String)} which is invoked by outerMethod() but don't want to record invocation of innerMethod().
- *  
- *  We can do this by sharing data as attachment of {@link InterceptorScopeInvocation}.
- *  When an InterceptorScopeInvocation is activated, interceptors in the scope can share an attachment object.
- *  InterceptorScopeInvocation is activated when before() of any of interceptors in the scope is invoked, but after() of it is not invoked.
+ *  In addition, we want to record the return value of {@link TargetClass04#innerMethod(java.lang.String)}, which is
+ *  invoked by <tt>outerMethod()</tt> but don't want to record the invocation of <tt>innerMethod()</tt>.
+ *  <p>
+ *  We can do this by sharing data between the two interceptors through {@link InterceptorScopeInvocation}. When an
+ *  <tt>InterceptorScopeInvocation</tt> is active, interceptors can attach objects to it and share them with other
+ *  interceptors within the same scope.<br/>
+ *  <tt>InterceptorScopeInvocation</tt> is activated for a scope when the <tt>before()</tt> method of any interceptors
+ *  in the scope is invoked, but before the <tt>after()</tt> method is invoked.
  *  
  *  @see Sample_04_Interceptors_In_A_Scope_Share_Value
  */
@@ -46,7 +49,7 @@ import com.navercorp.plugin.sample.target.TargetClass04;
 public class Sample_04_Interceptors_In_A_Group_Share_Value_IT {
 
     @Test
-    public void test() throws Exception {
+    public void testTrace() throws Exception {
         String name = "FOOBAR";
         int length = name.length();
 

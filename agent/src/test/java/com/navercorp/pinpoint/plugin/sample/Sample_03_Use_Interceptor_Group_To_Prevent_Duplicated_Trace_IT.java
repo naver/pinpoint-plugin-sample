@@ -29,11 +29,13 @@ import com.navercorp.pinpoint.test.plugin.PinpointPluginTestSuite;
 import com.navercorp.plugin.sample.target.TargetClass03;
 
 /**
- * Both {@link TargetClass03#targetMethodA()} and {@link TargetClass03#targetMethodB(int)} have been injected interceptors.
- * But those interceptors are in same interceptor scope and their execution policy is BOUNDARY which means "execute only when no other interceptor in the same scope is active".
- * (interceptor is active when it's BEFORE() is invoked but not AFTER() yet)
- * 
- * So in {@link #testA()}, only {@link TargetClass03#tergetMethodA()} is recorded and in {@link #testB()}, only {@link TargetClass03#targetMethodB(int)} is recorded.
+ * Both {@link TargetClass03#invoke()} and {@link TargetClass03#invoke(int)} have interceptors injected and are traced.
+ * <p>
+ * But these interceptors share the same interceptor scope and their execution policies are set to BOUNDARY telling them
+ * to <em>execute only when no other interceptor in the same scope is active</em>.
+ * <p>
+ * So in {@link #testA()}, only {@link TargetClass03#invoke()} is recorded and in {@link #testB()}, only
+ * {@link TargetClass03#invoke(int)} is recorded.
  * 
  * @see Sample_03_Use_Interceptor_Scope_To_Prevent_Duplicated_Trace
  * @author Jongho Moon
@@ -46,12 +48,12 @@ public class Sample_03_Use_Interceptor_Group_To_Prevent_Duplicated_Trace_IT {
     @Test
     public void testA() throws Exception {
         TargetClass03 target = new TargetClass03();
-        target.targetMethodA();
+        target.invoke();
         
         PluginTestVerifier verifier = PluginTestVerifierHolder.getInstance();
         verifier.printCache();
         
-        Method targetMethod = TargetClass03.class.getMethod("targetMethodA");
+        Method targetMethod = TargetClass03.class.getMethod("invoke");
         verifier.verifyTrace(Expectations.event("PluginExample", targetMethod));
         
         // no more traces
@@ -61,12 +63,12 @@ public class Sample_03_Use_Interceptor_Group_To_Prevent_Duplicated_Trace_IT {
     @Test
     public void testB() throws Exception {
         TargetClass03 target = new TargetClass03();
-        target.targetMethodB(3);
+        target.invoke(3);
         
         PluginTestVerifier verifier = PluginTestVerifierHolder.getInstance();
         verifier.printCache();
         
-        Method targetMethod = TargetClass03.class.getMethod("targetMethodB", int.class);
+        Method targetMethod = TargetClass03.class.getMethod("invoke", int.class);
         verifier.verifyTrace(Expectations.event("PluginExample", targetMethod));
         
         // no more traces

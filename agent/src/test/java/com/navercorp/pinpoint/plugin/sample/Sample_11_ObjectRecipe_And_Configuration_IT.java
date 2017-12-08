@@ -16,6 +16,7 @@ package com.navercorp.pinpoint.plugin.sample;
 
 import java.lang.reflect.Method;
 
+import com.navercorp.pinpoint.plugin.sample._11_Configuration_And_ObjectRecipe.Sample_11_Configuration_And_ObjectRecipe;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -31,7 +32,7 @@ import com.navercorp.plugin.sample.target.TargetClass11;
 /**
  * This test uses @PinpointConfig to specify configuration file. 
  * 
- * @see Sample_11_ObjectRecipe_And_Configuration
+ * @see Sample_11_Configuration_And_ObjectRecipe
  * @author Jongho Moon
  */
 @RunWith(PinpointPluginTestSuite.class)

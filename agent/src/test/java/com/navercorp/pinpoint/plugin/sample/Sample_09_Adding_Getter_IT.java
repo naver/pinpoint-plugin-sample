@@ -30,7 +30,10 @@ import com.navercorp.pinpoint.test.plugin.PinpointPluginTestSuite;
 import com.navercorp.plugin.sample.target.TargetClass09;
 
 /**
- * @see Sample_13_RPC_Client
+ * We want to record the value of <tt>hiddenField</tt> field in {@link TargetClass09}. So we have added a getter for
+ * it during class transformation.
+ *
+ * @see Sample_09_Adding_Getter
  * @author Jongho Moon
  */
 @RunWith(PinpointPluginTestSuite.class)

@@ -28,7 +28,7 @@ import com.navercorp.pinpoint.plugin.sample.SamplePluginConstants;
 import static com.navercorp.pinpoint.common.util.VarArgs.va;
 
 /**
- * If you want to add same interceptor to many methods, use {@link MethodFilter}.
+ * If you want to add the same interceptor to multiple methods, use {@link MethodFilter}.
  * 
  * {@link MethodFilters} provides factory methods for pre-defined filters.
  */
@@ -40,11 +40,11 @@ public class Sample_07_Use_MethodFilter_To_Intercept_Multiple_Methods implements
 
         // Get target methods filtered by name.
         for (InstrumentMethod method : target.getDeclaredMethods(MethodFilters.name("recordMe"))) {
-            // Add interceptor to each method. Note that every method will be injected a dedicated interceptor instance. 
+            // Add interceptor to each method. Note that each method will be injected with a dedicated interceptor instance.
             method.addInterceptor("com.navercorp.pinpoint.bootstrap.interceptor.BasicMethodInterceptor", va(SamplePluginConstants.MY_SERVICE_TYPE));
         }
         
-        // To make methods share an interceptor object, use addInterceptor(int) like this.
+        // To force the methods to share the same interceptor instance, use addInterceptor(int) like this.
         int interceptorId = -1;
         for (InstrumentMethod method : target.getDeclaredMethods(MethodFilters.name("logMe"))) {
             if (interceptorId == -1) {

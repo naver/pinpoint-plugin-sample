@@ -26,7 +26,7 @@ import com.navercorp.pinpoint.plugin.sample.SamplePluginConstants;
 import static com.navercorp.pinpoint.common.util.VarArgs.va;
 
 /**
- * You can inject an interceptor to constructors too.
+ * You can also inject interceptors to constructors.
  */
 public class Sample_05_Constructor_Interceptor implements TransformCallback {
 

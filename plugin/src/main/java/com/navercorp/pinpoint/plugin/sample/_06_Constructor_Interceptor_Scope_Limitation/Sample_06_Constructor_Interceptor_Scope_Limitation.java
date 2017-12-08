@@ -27,26 +27,31 @@ import com.navercorp.pinpoint.plugin.sample.SamplePluginConstants;
 import static com.navercorp.pinpoint.common.util.VarArgs.va;
 
 /**
- * Constructor interceptors can be scoped too. But there is a limitation.
- * 
- * Java enforces that the first operation of a constructor must be invocation of a super constructor or an overloaded constructor.
- * So any injected code (including interceptor call) must come after this.
- * Therefore interceptor invocation order is different with normal method's one.
- * 
- * If an intercepted method A calls an intercepted method B, interceptors are invoked in this order
- * (A' is interceptor of A, B' is interceptor of B):
- *  
- * A'.before(), B'.before(), B'.after(), A'.before()
- *  
- * 
- * But if A and B are constructors, interceptors are executed like below:
- * B'.before(), B'.after(), A'.before(), A'.after()
- * 
- * 
- * This also effects ExecutionPolicy of scoped interceptors.
- * In case of methods, if A and B are in the same scope with execution policy BOUNDARY, methods of B' is not executed.
- * 
- * But for constructors, methods of A' and B' are all executed because when B' is executed, A' is not active.
+ * Constructor interceptors can be scoped as well. But there is a limitation.
+ * <p>
+ * Java enforces that the first operation of a constructor must be invocation of a super constructor or an overloaded
+ * constructor so any injected code (including interceptor methods) is executed after this. Therefore method invocation
+ * order for constructor interceptors is different from that of a normal method.
+ * <p>
+ * If method A calls method B, the interceptors are invoked in this order :
+ * <ol>
+ * <li><tt>A_interceptor.before();</tt></li>
+ * <li><tt>B_interceptor.before();</tt></li>
+ * <li><tt>B_interceptor.after();</tt></li>
+ * <li><tt>A_interceptor.after();</tt></li>
+ * </ol>
+ *
+ * But if A and B are constructors and A calls B, the interceptors are executed in this order :
+ * <ol>
+ * <li><tt>B_interceptor.before();</tt></li>
+ * <li><tt>B_interceptor.after();</tt></li>
+ * <li><tt>A_interceptor.before();</tt></li>
+ * <li><tt>A_interceptor.after();</tt></li>
+ * </ol>
+ *
+ * This also affects the execution policy of scoped interceptors. For methods, if A and B are in the same scope with
+ * execution policy BOUNDARY, B's interceptor is not executed. If A and B were constructors however, both A and B's
+ * interceptors are executed as when B's interceptor is executed, it is not with the scope of A's interceptor.
  */
 public class Sample_06_Constructor_Interceptor_Scope_Limitation implements TransformCallback {
 

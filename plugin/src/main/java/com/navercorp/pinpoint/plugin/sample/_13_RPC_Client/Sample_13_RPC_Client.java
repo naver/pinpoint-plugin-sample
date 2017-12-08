@@ -22,9 +22,8 @@ import com.navercorp.pinpoint.bootstrap.instrument.Instrumentor;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformCallback;
 
 /**
- * To trace a transaction across nodes, you have to attach some tracing data to RPC calls.
- * This example shows how.
- * 
+ * To trace a transaction across nodes, you have to attach some tracing data to RPC calls. This example shows how.
+ * <p>
  * Target classes are just for this example. They are not real RPC client.
  */
 public class Sample_13_RPC_Client implements TransformCallback {

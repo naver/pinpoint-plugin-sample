@@ -17,11 +17,13 @@ package com.navercorp.pinpoint.plugin.sample._12_Asynchronous_Trace;
 import java.security.ProtectionDomain;
 
 import com.navercorp.pinpoint.bootstrap.async.AsyncContextAccessor;
+import com.navercorp.pinpoint.bootstrap.context.AsyncContext;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentClass;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentException;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentMethod;
 import com.navercorp.pinpoint.bootstrap.instrument.Instrumentor;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformCallback;
+import com.navercorp.pinpoint.bootstrap.interceptor.AsyncContextSpanEventSimpleAroundInterceptor;
 import com.navercorp.pinpoint.bootstrap.interceptor.scope.ExecutionPolicy;
 import com.navercorp.pinpoint.bootstrap.interceptor.scope.InterceptorScope;
 import com.navercorp.pinpoint.plugin.sample.SamplePluginConstants;
@@ -33,7 +35,7 @@ import static com.navercorp.pinpoint.common.util.VarArgs.va;
  * <ol>
  *     <li>
  *         Intercept a method initiating an async task and create/record a new
- *         {@link com.navercorp.pinpoint.bootstrap.context.AsyncContext AsyncContext}.
+ *         {@link AsyncContext}.
  *     </li>
  *     <li>
  *         Pass the <tt>AsyncContext</tt> to the handler of the async task.
@@ -43,8 +45,7 @@ import static com.navercorp.pinpoint.common.util.VarArgs.va;
  *     </li>
  *     <li>
  *         Intercept a method handling the async task with an interceptor extending
- *         {@link com.navercorp.pinpoint.bootstrap.interceptor.AsyncContextSpanEventSimpleAroundInterceptor
- *         AsyncContextSpanEventSimpleAroundInterceptor}.
+ *         {@link AsyncContextSpanEventSimpleAroundInterceptor}.
  *     </li>
  * </ol>
  *

@@ -28,7 +28,7 @@ import com.navercorp.plugin.sample.target.TargetClass14_Request;
 import com.navercorp.plugin.sample.target.TargetClass14_Server;
 
 /**
- * You'd better extends {@link SpanSimpleAroundInterceptor} to write a server application interceptor.
+ * You'd better extend {@link SpanSimpleAroundInterceptor} to write a server application interceptor.
  * 
  * @author Jongho Moon
  */

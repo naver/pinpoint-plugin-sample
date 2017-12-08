@@ -21,10 +21,12 @@ import com.navercorp.pinpoint.bootstrap.instrument.InstrumentException;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentMethod;
 import com.navercorp.pinpoint.bootstrap.instrument.Instrumentor;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformCallback;
+import com.navercorp.pinpoint.plugin.sample._11_Configuration_And_ObjectRecipe.HelloInterceptor;
 
 /**
- * Of course you can inject a custom interceptor.
- * See {@link HelloInterceptor} to learn how to write an interceptor.
+ * This sample shows you how to inject your very own, custom interceptor.
+ * See {@link HelloInterceptor}
+ * to learn how to write an interceptor.
  */
 public class Sample_02_Inject_Custom_Interceptor implements TransformCallback {
 
@@ -32,7 +34,7 @@ public class Sample_02_Inject_Custom_Interceptor implements TransformCallback {
     public byte[] doInTransform(Instrumentor instrumentor, ClassLoader classLoader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws InstrumentException {
         InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
         InstrumentMethod targetMethod = target.getDeclaredMethod("targetMethod", "java.lang.String");
-        
+
         targetMethod.addInterceptor("com.navercorp.pinpoint.plugin.sample._02_Injecting_Custom_Interceptor.RecordArgsAndReturnValueInterceptor");
         
         return target.toBytecode();

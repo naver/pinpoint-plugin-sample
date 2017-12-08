@@ -33,8 +33,9 @@ import com.navercorp.plugin.sample.target.TargetClass10_Producer;
 
 /**
  * We want to trace {@link TargetClass10_Consumer#consume(TargetClass10_Message)} with producer name.
- * But we can not retrieve the producer name in the method. 
- * So we intercept {@link TargetClass10_Producer#produce()} to inject producer name into the returning {@link TargetClass10_Message}. 
+ * But we can not retrieve the producer name in the method.
+ * So we intercept {@link TargetClass10_Producer#produce()} to inject producer name into the returning
+ * {@link TargetClass10_Message} instance.
  * 
  * @see Sample_10_Adding_Field
  * @author Jongho Moon

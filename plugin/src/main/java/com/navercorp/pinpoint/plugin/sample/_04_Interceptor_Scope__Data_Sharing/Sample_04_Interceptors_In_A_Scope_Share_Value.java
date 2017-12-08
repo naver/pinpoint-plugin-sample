@@ -24,9 +24,13 @@ import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformCallback
 import com.navercorp.pinpoint.bootstrap.interceptor.scope.ExecutionPolicy;
 import com.navercorp.pinpoint.bootstrap.interceptor.scope.InterceptorScope;
 
-/*
- * Sometimes interceptors need to share values to trace a transaction.
- * You can use InterceptorScope for that purpose.
+/**
+ * Sometimes interceptors need to share data with others to trace a transaction. An example of this is when tracing a
+ * RPC client where the destination address needed by an interceptor at the end of the chain can only be acquired by
+ * some other interceptor further up in the chain.
+ * <p>
+ * For this purpose, you may attach objects to {@link InterceptorScope} to share them between interceptors having the
+ * same scope.
  */
 public class Sample_04_Interceptors_In_A_Scope_Share_Value implements TransformCallback {
 
@@ -37,11 +41,11 @@ public class Sample_04_Interceptors_In_A_Scope_Share_Value implements TransformC
         // Get the scope object from Instrumentor
         InterceptorScope scope = instrumentor.getInterceptorScope("SAMPLE_04_SCOPE");
 
-        // Put interceptors need to share data to a same scope.
+        // Interceptors that need to share data must have the same scope.
         InstrumentMethod outerMethod = target.getDeclaredMethod("outerMethod", "java.lang.String");
         outerMethod.addScopedInterceptor("com.navercorp.pinpoint.plugin.sample._04_Interceptor_Scope__Data_Sharing.OuterMethodInterceptor", scope);
         
-        // Note that execution policy of InnerMethodInterceptor is INTERNAL to make the interceptor runs only when other interceptor in the scope is active.
+        // Note that execution policy of InnerMethodInterceptor is INTERNAL to make the interceptor execute only when the other interceptor in the scope is active.
         InstrumentMethod innerMethod = target.getDeclaredMethod("innerMethod", "java.lang.String");
         innerMethod.addScopedInterceptor("com.navercorp.pinpoint.plugin.sample._04_Interceptor_Scope__Data_Sharing.InnerMethodInterceptor", scope, ExecutionPolicy.INTERNAL);
         

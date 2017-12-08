@@ -21,6 +21,10 @@ import com.navercorp.pinpoint.bootstrap.context.TraceContext;
 import com.navercorp.pinpoint.bootstrap.interceptor.AroundInterceptor;
 import com.navercorp.pinpoint.plugin.sample.SamplePluginConstants;
 
+/**
+ * The interceptor needs to record the value of field <tt>hiddenField</tt> that is hidden. Luckily, we have added a
+ * getter method for this {@link HiddenFieldGetter} so that we can access it during runtime.
+ */
 public class RecordFieldInterceptor implements AroundInterceptor {
     private final MethodDescriptor descriptor;
     private final TraceContext traceContext;

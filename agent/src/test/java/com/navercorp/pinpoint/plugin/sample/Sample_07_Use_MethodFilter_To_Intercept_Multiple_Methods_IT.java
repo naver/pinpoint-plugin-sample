@@ -30,7 +30,7 @@ import com.navercorp.pinpoint.test.plugin.PinpointPluginTestSuite;
 import com.navercorp.plugin.sample.target.TargetClass07;
 
 /**
- * Intercept public methods by using {@link MethodFilter}
+ * Intercept public methods by using {@link MethodFilter}.
  * 
  * @see Sample_08_Interceptor_Annotations
  * @author Jongho Moon

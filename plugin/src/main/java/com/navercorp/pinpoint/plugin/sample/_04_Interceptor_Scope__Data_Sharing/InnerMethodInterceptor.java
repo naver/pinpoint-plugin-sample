@@ -15,12 +15,13 @@
 package com.navercorp.pinpoint.plugin.sample._04_Interceptor_Scope__Data_Sharing;
 
 import com.navercorp.pinpoint.bootstrap.interceptor.AroundInterceptor0;
-import com.navercorp.pinpoint.bootstrap.interceptor.annotation.IgnoreMethod;
 import com.navercorp.pinpoint.bootstrap.interceptor.scope.InterceptorScope;
 import com.navercorp.pinpoint.bootstrap.interceptor.scope.InterceptorScopeInvocation;
 
 /**
- * This interceptor uses {@link InterceptorScopeInvocation} attachment to pass data to {@link OuterMethodInterceptor}
+ * This interceptor uses {@link InterceptorScopeInvocation} to receive <tt>MyAttachment</tt> for a flag to see if the
+ * current transaction is being traced. If so, the return value is then set to the attachment so that it can be passed
+ * on to {@link OuterMethodInterceptor}.
  */
 public class InnerMethodInterceptor implements AroundInterceptor0 {
     private final InterceptorScope scope;
@@ -30,7 +31,6 @@ public class InnerMethodInterceptor implements AroundInterceptor0 {
         this.scope = scope;
     }
 
-    @IgnoreMethod
     @Override
     public void before(Object target) {
 

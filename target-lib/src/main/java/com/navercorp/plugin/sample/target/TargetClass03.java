@@ -1,15 +1,16 @@
 package com.navercorp.plugin.sample.target;
 
 public class TargetClass03 {
-    public void targetMethodA() {
-        targetMethodB(10);
+
+    public void invoke() {
+        invoke(10);
     }
 
-    public void targetMethodB(int times) {
-        if (times <= 0) {
+    public void invoke(int times) {
+        if (times <= 1) {
             return;
         }
 
-        targetMethodB(times - 1);
+        invoke(times - 1);
     }
 }

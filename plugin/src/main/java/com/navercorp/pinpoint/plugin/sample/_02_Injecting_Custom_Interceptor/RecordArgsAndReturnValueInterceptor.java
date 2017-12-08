@@ -25,6 +25,7 @@ import com.navercorp.pinpoint.bootstrap.interceptor.AroundInterceptor2;
 import com.navercorp.pinpoint.bootstrap.interceptor.AroundInterceptor3;
 import com.navercorp.pinpoint.bootstrap.interceptor.AroundInterceptor4;
 import com.navercorp.pinpoint.bootstrap.interceptor.AroundInterceptor5;
+import com.navercorp.pinpoint.bootstrap.interceptor.SpanEventSimpleAroundInterceptorForPlugin;
 import com.navercorp.pinpoint.bootstrap.interceptor.StaticAroundInterceptor;
 import com.navercorp.pinpoint.bootstrap.logging.PLogger;
 import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
@@ -32,10 +33,13 @@ import com.navercorp.pinpoint.common.trace.AnnotationKey;
 import com.navercorp.pinpoint.plugin.sample.SamplePluginConstants;
 
 /**
+ * <strong>It is strongly recommended that you extend SpanEventSimpleAroundInterceptorForPlugin.</strong>
+ * It contains most of the boiler plate code for implementing a basic interceptor.
+ * <p>
  * This interceptor shows how to record a method invocation with it's arguments and return value.
- * 
+ * <p>
  * An interceptor have to implement one of following interfaces:
- * 
+ * <ul>
  * <li>{@link AroundInterceptor}</li>
  * <li>{@link AroundInterceptor0}</li>
  * <li>{@link AroundInterceptor1}</li>
@@ -44,10 +48,14 @@ import com.navercorp.pinpoint.plugin.sample.SamplePluginConstants;
  * <li>{@link AroundInterceptor4}</li>
  * <li>{@link AroundInterceptor5}</li>
  * <li>{@link StaticAroundInterceptor}</li>
- * 
- * Differences between these interfaces are, number of arguments the intercepter receives and at which point the target method is intercepted.  
- * 
- * This sample interceptor impelemnts AroundInterceptor1 which intercepts before and after the target method execution, and receives one argument of the method.
+ * </ul>
+ * Differences between these interfaces are, number of arguments the intercepter receives and at which point the target
+ * method is intercepted.
+ * <p>
+ * This sample interceptor implements AroundInterceptor1 which intercepts before and after the target method execution,
+ * and receives one argument of the method.
+ *
+ * @see SpanEventSimpleAroundInterceptorForPlugin
  */
 public class RecordArgsAndReturnValueInterceptor implements AroundInterceptor1 {
     // You have to use PLogger for logging because you don't know which logging library the target application uses. 
