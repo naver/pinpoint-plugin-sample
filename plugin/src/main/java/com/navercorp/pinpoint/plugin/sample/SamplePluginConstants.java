@@ -15,9 +15,9 @@
 package com.navercorp.pinpoint.plugin.sample;
 
 import com.navercorp.pinpoint.common.trace.AnnotationKey;
-import com.navercorp.pinpoint.common.trace.AnnotationKeyFactory;
+import com.navercorp.pinpoint.common.trace.AnnotationKeyProvider;
 import com.navercorp.pinpoint.common.trace.ServiceType;
-import com.navercorp.pinpoint.common.trace.ServiceTypeFactory;
+import com.navercorp.pinpoint.common.trace.ServiceTypeProvider;
 
 /**
  * @author Jongho Moon
@@ -25,22 +25,22 @@ import com.navercorp.pinpoint.common.trace.ServiceTypeFactory;
  */
 public interface SamplePluginConstants {
 
-    public static final ServiceType MY_SERVICE_TYPE = ServiceTypeFactory.of(7500, "PluginExample");
-    public static final AnnotationKey ANNOTATION_KEY_MY_VALUE = AnnotationKeyFactory.of(998, "MyValue");
+    ServiceType MY_SERVICE_TYPE = ServiceTypeProvider.getByName("PluginExample");
+    AnnotationKey ANNOTATION_KEY_MY_VALUE = AnnotationKeyProvider.getByCode(998);
     
-    public static final ServiceType MY_RPC_SERVER_SERVICE_TYPE = ServiceTypeFactory.of(1900, "SAMPLE_SERVER");
+    ServiceType MY_RPC_SERVER_SERVICE_TYPE = ServiceTypeProvider.getByName("SAMPLE_SERVER");
     
-    public static final ServiceType MY_RPC_CLIENT_SERVICE_TYPE = ServiceTypeFactory.of(9901, "SAMPLE_CLIENT");
-    public static final AnnotationKey MY_RPC_ARGUMENT_ANNOTATION_KEY = AnnotationKeyFactory.of(995, "MY_ARGUMENT");
-    public static final AnnotationKey MY_RPC_PROCEDURE_ANNOTATION_KEY = AnnotationKeyFactory.of(996, "MY_PROCEDURE");
-    public static final AnnotationKey MY_RPC_RESULT_ANNOTATION_KEY = AnnotationKeyFactory.of(997, "MY_RESULT");
+    ServiceType MY_RPC_CLIENT_SERVICE_TYPE = ServiceTypeProvider.getByName("SAMPLE_CLIENT");
+    AnnotationKey MY_RPC_ARGUMENT_ANNOTATION_KEY = AnnotationKeyProvider.getByCode(995);
+    AnnotationKey MY_RPC_PROCEDURE_ANNOTATION_KEY = AnnotationKeyProvider.getByCode(996);
+    AnnotationKey MY_RPC_RESULT_ANNOTATION_KEY = AnnotationKeyProvider.getByCode(997);
 
-    public static final String META_DO_NOT_TRACE = "_SAMPLE_DO_NOT_TRACE";
-    public static final String META_TRANSACTION_ID = "_SAMPLE_TRASACTION_ID";
-    public static final String META_SPAN_ID = "_SAMPLE_SPAN_ID";
-    public static final String META_PARENT_SPAN_ID = "_SAMPLE_PARENT_SPAN_ID";
-    public static final String META_PARENT_APPLICATION_NAME = "_SAMPLE_PARENT_APPLICATION_NAME";
-    public static final String META_PARENT_APPLICATION_TYPE = "_SAMPLE_PARENT_APPLICATION_TYPE";
-    public static final String META_FLAGS = "_SAMPLE_FLAGS";
+    String META_DO_NOT_TRACE = "_SAMPLE_DO_NOT_TRACE";
+    String META_TRANSACTION_ID = "_SAMPLE_TRANSACTION_ID";
+    String META_SPAN_ID = "_SAMPLE_SPAN_ID";
+    String META_PARENT_SPAN_ID = "_SAMPLE_PARENT_SPAN_ID";
+    String META_PARENT_APPLICATION_NAME = "_SAMPLE_PARENT_APPLICATION_NAME";
+    String META_PARENT_APPLICATION_TYPE = "_SAMPLE_PARENT_APPLICATION_TYPE";
+    String META_FLAGS = "_SAMPLE_FLAGS";
     
 }

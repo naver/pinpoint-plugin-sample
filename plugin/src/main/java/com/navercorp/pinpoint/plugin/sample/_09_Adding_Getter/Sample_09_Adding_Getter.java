@@ -31,8 +31,8 @@ public class Sample_09_Adding_Getter implements TransformCallback {
     public byte[] doInTransform(Instrumentor instrumentor, ClassLoader classLoader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws InstrumentException {
         InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
 
-        target.addGetter("com.navercorp.pinpoint.plugin.sample._09_Adding_Getter.HiddenFieldGetter", "hiddenField");
-        target.getDeclaredMethod("targetMethod").addInterceptor("com.navercorp.pinpoint.plugin.sample._09_Adding_Getter.RecordFieldInterceptor");
+        target.addGetter(HiddenFieldGetter.class, "hiddenField");
+        target.getDeclaredMethod("targetMethod").addInterceptor(RecordFieldInterceptor.class);
 
         return target.toBytecode();
     }

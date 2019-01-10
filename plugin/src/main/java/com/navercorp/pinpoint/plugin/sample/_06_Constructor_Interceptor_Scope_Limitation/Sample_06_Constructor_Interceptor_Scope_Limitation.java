@@ -21,6 +21,7 @@ import com.navercorp.pinpoint.bootstrap.instrument.InstrumentException;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentMethod;
 import com.navercorp.pinpoint.bootstrap.instrument.Instrumentor;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformCallback;
+import com.navercorp.pinpoint.bootstrap.interceptor.BasicMethodInterceptor;
 import com.navercorp.pinpoint.bootstrap.interceptor.scope.InterceptorScope;
 import com.navercorp.pinpoint.plugin.sample.SamplePluginConstants;
 
@@ -61,10 +62,10 @@ public class Sample_06_Constructor_Interceptor_Scope_Limitation implements Trans
         InterceptorScope scope = instrumentor.getInterceptorScope("SAMPLE_SCOPE");
 
         InstrumentMethod targetConstructorA = target.getConstructor();
-        targetConstructorA.addScopedInterceptor("com.navercorp.pinpoint.bootstrap.interceptor.BasicMethodInterceptor", va(SamplePluginConstants.MY_SERVICE_TYPE), scope);
+        targetConstructorA.addScopedInterceptor(BasicMethodInterceptor.class, va(SamplePluginConstants.MY_SERVICE_TYPE), scope);
 
         InstrumentMethod targetConstructorB = target.getConstructor("int");
-        targetConstructorB.addScopedInterceptor("com.navercorp.pinpoint.bootstrap.interceptor.BasicMethodInterceptor", va(SamplePluginConstants.MY_SERVICE_TYPE), scope);
+        targetConstructorB.addScopedInterceptor(BasicMethodInterceptor.class, va(SamplePluginConstants.MY_SERVICE_TYPE), scope);
 
         return target.toBytecode();
     }

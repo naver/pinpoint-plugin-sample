@@ -23,6 +23,8 @@ import com.navercorp.pinpoint.bootstrap.instrument.Instrumentor;
 import com.navercorp.pinpoint.bootstrap.instrument.MethodFilter;
 import com.navercorp.pinpoint.bootstrap.instrument.MethodFilters;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformCallback;
+import com.navercorp.pinpoint.bootstrap.interceptor.BasicMethodInterceptor;
+import com.navercorp.pinpoint.bootstrap.interceptor.LoggingInterceptor;
 import com.navercorp.pinpoint.plugin.sample.SamplePluginConstants;
 
 import static com.navercorp.pinpoint.common.util.VarArgs.va;
@@ -41,14 +43,14 @@ public class Sample_07_Use_MethodFilter_To_Intercept_Multiple_Methods implements
         // Get target methods filtered by name.
         for (InstrumentMethod method : target.getDeclaredMethods(MethodFilters.name("recordMe"))) {
             // Add interceptor to each method. Note that each method will be injected with a dedicated interceptor instance.
-            method.addInterceptor("com.navercorp.pinpoint.bootstrap.interceptor.BasicMethodInterceptor", va(SamplePluginConstants.MY_SERVICE_TYPE));
+            method.addInterceptor(BasicMethodInterceptor.class, va(SamplePluginConstants.MY_SERVICE_TYPE));
         }
         
         // To force the methods to share the same interceptor instance, use addInterceptor(int) like this.
         int interceptorId = -1;
         for (InstrumentMethod method : target.getDeclaredMethods(MethodFilters.name("logMe"))) {
             if (interceptorId == -1) {
-                interceptorId = method.addInterceptor("com.navercorp.pinpoint.bootstrap.interceptor.LoggingInterceptor", va("SMAPLE_07_LOGGER"));
+                interceptorId = method.addInterceptor(LoggingInterceptor.class, va("SMAPLE_07_LOGGER"));
             } else {
                 method.addInterceptor(interceptorId);
             }

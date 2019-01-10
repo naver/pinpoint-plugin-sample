@@ -4,10 +4,10 @@
 
     <groupId>com.navercorp.pinpoint</groupId>
     <artifactId>plugin-sample-target</artifactId>
-    <version>1.8.1-SNAPSHOT</version>
+    <version>1.9.0-SNAPSHOT</version>
     <name>Pinpoint Plugin Sample Target Library</name>
     <packaging>jar</packaging>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -17,6 +17,15 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
         </plugins>

@@ -35,7 +35,7 @@ public class Sample_02_Inject_Custom_Interceptor implements TransformCallback {
         InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
         InstrumentMethod targetMethod = target.getDeclaredMethod("targetMethod", "java.lang.String");
 
-        targetMethod.addInterceptor("com.navercorp.pinpoint.plugin.sample._02_Injecting_Custom_Interceptor.RecordArgsAndReturnValueInterceptor");
+        targetMethod.addInterceptor(RecordArgsAndReturnValueInterceptor.class);
         
         return target.toBytecode();
     }

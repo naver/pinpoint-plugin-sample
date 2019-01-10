@@ -45,7 +45,7 @@ public class Sample_08_Interceptor_Annotations implements TransformCallback {
     public byte[] doInTransform(Instrumentor instrumentor, ClassLoader classLoader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws InstrumentException {
         InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
         
-        target.addInterceptor("com.navercorp.pinpoint.plugin.sample._08_Interceptor_Annotations.AnnotatedInterceptor");
+        target.addInterceptor(AnnotatedInterceptor.class);
 
         return target.toBytecode();
     }

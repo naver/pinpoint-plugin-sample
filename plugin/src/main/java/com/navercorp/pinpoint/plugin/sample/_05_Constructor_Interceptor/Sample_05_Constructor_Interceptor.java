@@ -21,6 +21,7 @@ import com.navercorp.pinpoint.bootstrap.instrument.InstrumentException;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentMethod;
 import com.navercorp.pinpoint.bootstrap.instrument.Instrumentor;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformCallback;
+import com.navercorp.pinpoint.bootstrap.interceptor.BasicMethodInterceptor;
 import com.navercorp.pinpoint.plugin.sample.SamplePluginConstants;
 
 import static com.navercorp.pinpoint.common.util.VarArgs.va;
@@ -36,7 +37,7 @@ public class Sample_05_Constructor_Interceptor implements TransformCallback {
         
         // Note that getConstructor() returns InstrumentMethod
         InstrumentMethod targetConstructor = target.getConstructor("java.lang.String");
-        targetConstructor.addInterceptor("com.navercorp.pinpoint.bootstrap.interceptor.BasicMethodInterceptor", va(SamplePluginConstants.MY_SERVICE_TYPE));
+        targetConstructor.addInterceptor(BasicMethodInterceptor.class, va(SamplePluginConstants.MY_SERVICE_TYPE));
         
         return target.toBytecode();
     }

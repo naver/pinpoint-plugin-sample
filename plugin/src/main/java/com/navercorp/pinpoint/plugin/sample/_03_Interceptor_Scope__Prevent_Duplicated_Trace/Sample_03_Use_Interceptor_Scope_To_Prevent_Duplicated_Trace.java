@@ -21,6 +21,7 @@ import com.navercorp.pinpoint.bootstrap.instrument.InstrumentException;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentMethod;
 import com.navercorp.pinpoint.bootstrap.instrument.Instrumentor;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformCallback;
+import com.navercorp.pinpoint.bootstrap.interceptor.BasicMethodInterceptor;
 import com.navercorp.pinpoint.bootstrap.interceptor.scope.ExecutionPolicy;
 import com.navercorp.pinpoint.bootstrap.interceptor.scope.InterceptorScope;
 import com.navercorp.pinpoint.plugin.sample.SamplePluginConstants;
@@ -64,11 +65,11 @@ public class Sample_03_Use_Interceptor_Scope_To_Prevent_Duplicated_Trace impleme
 
         // Add scoped interceptor with execution policy set to BOUNDARY (default)
         InstrumentMethod targetMethodA = target.getDeclaredMethod("invoke");
-        targetMethodA.addScopedInterceptor("com.navercorp.pinpoint.bootstrap.interceptor.BasicMethodInterceptor", va(SamplePluginConstants.MY_SERVICE_TYPE), scope);
+        targetMethodA.addScopedInterceptor(BasicMethodInterceptor.class, va(SamplePluginConstants.MY_SERVICE_TYPE), scope);
         
         // Add scoped interceptor with execution policy set to BOUNDARY (default)
         InstrumentMethod targetMethodB = target.getDeclaredMethod("invoke", "int");
-        targetMethodB.addScopedInterceptor("com.navercorp.pinpoint.bootstrap.interceptor.BasicMethodInterceptor", va(SamplePluginConstants.MY_SERVICE_TYPE), scope);
+        targetMethodB.addScopedInterceptor(BasicMethodInterceptor.class, va(SamplePluginConstants.MY_SERVICE_TYPE), scope);
         
         return target.toBytecode();
     }

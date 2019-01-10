@@ -14,22 +14,25 @@
  */
 package com.navercorp.pinpoint.plugin.sample;
 
-import com.navercorp.pinpoint.bootstrap.plugin.ApplicationTypeDetector;
-import com.navercorp.pinpoint.bootstrap.resolver.ConditionProvider;
+import com.navercorp.pinpoint.bootstrap.resolver.condition.MainClassCondition;
 import com.navercorp.pinpoint.common.trace.ServiceType;
 
 /**
  * @author Jongho Moon
  *
  */
-public final class SampleServerDetector implements ApplicationTypeDetector {
-    @Override
+public final class SampleServerDetector {
+
+    private static final String MAIN_CLASS = "com.navercorp.plugin.sample.target.TargetClass14_Server";
+
     public ServiceType getApplicationType() {
         return SamplePluginConstants.MY_RPC_SERVER_SERVICE_TYPE;
     }
 
-    @Override
-    public boolean detect(ConditionProvider provider) {
-        return provider.checkMainClass("com.navercorp.plugin.sample.target.TargetClass14_Server");
+    public boolean detect() {
+        if (MainClassCondition.INSTANCE.check(MAIN_CLASS)) {
+            return true;
+        }
+        return false;
     }
 }

@@ -43,11 +43,11 @@ public class Sample_04_Interceptors_In_A_Scope_Share_Value implements TransformC
 
         // Interceptors that need to share data must have the same scope.
         InstrumentMethod outerMethod = target.getDeclaredMethod("outerMethod", "java.lang.String");
-        outerMethod.addScopedInterceptor("com.navercorp.pinpoint.plugin.sample._04_Interceptor_Scope__Data_Sharing.OuterMethodInterceptor", scope);
+        outerMethod.addScopedInterceptor(OuterMethodInterceptor.class, scope);
         
         // Note that execution policy of InnerMethodInterceptor is INTERNAL to make the interceptor execute only when the other interceptor in the scope is active.
         InstrumentMethod innerMethod = target.getDeclaredMethod("innerMethod", "java.lang.String");
-        innerMethod.addScopedInterceptor("com.navercorp.pinpoint.plugin.sample._04_Interceptor_Scope__Data_Sharing.InnerMethodInterceptor", scope, ExecutionPolicy.INTERNAL);
+        innerMethod.addScopedInterceptor(InnerMethodInterceptor.class, scope, ExecutionPolicy.INTERNAL);
         
         return target.toBytecode();
     }

@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.navercorp.pinpoint</groupId>
         <artifactId>plugin-sample</artifactId>
-        <version>1.8.1-SNAPSHOT</version>
+        <version>1.9.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>plugin-sample-agent</artifactId>
@@ -42,13 +42,6 @@
 
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
-            <artifactId>pinpoint-plugins</artifactId>
-            <version>${pinpoint.version}</version>
-            <type>pom</type>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.navercorp.pinpoint</groupId>
             <artifactId>plugin-sample-plugin</artifactId>
             <version>${pinpoint.version}</version>
             <scope>runtime</scope>
@@ -56,7 +49,19 @@
 
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
-            <artifactId>pinpoint-bootstrap-core-optional</artifactId>
+            <artifactId>pinpoint-bootstrap-java7</artifactId>
+            <version>${pinpoint.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.navercorp.pinpoint</groupId>
+            <artifactId>pinpoint-bootstrap-java8</artifactId>
+            <version>${pinpoint.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.navercorp.pinpoint</groupId>
+            <artifactId>pinpoint-bootstrap-java9</artifactId>
             <version>${pinpoint.version}</version>
             <scope>runtime</scope>
         </dependency>

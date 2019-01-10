@@ -32,9 +32,9 @@ public class Sample_13_RPC_Client implements TransformCallback {
     public byte[] doInTransform(Instrumentor instrumentor, ClassLoader classLoader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws InstrumentException {
         InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
 
-        target.addGetter("com.navercorp.pinpoint.plugin.sample._13_RPC_Client.ServerAddressGetter", "serverAddress");
-        target.addGetter("com.navercorp.pinpoint.plugin.sample._13_RPC_Client.ServerPortGetter", "serverPort");
-        target.getDeclaredMethod("sendRequest", "com.navercorp.plugin.sample.target.TargetClass13_Request").addInterceptor("com.navercorp.pinpoint.plugin.sample._13_RPC_Client.SendRequestInterceptor");
+        target.addGetter(ServerAddressGetter.class, "serverAddress");
+        target.addGetter(ServerPortGetter.class, "serverPort");
+        target.getDeclaredMethod("sendRequest", "com.navercorp.plugin.sample.target.TargetClass13_Request").addInterceptor(SendRequestInterceptor.class);
 
         return target.toBytecode();
     }

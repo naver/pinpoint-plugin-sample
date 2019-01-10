@@ -40,7 +40,7 @@ public class Sample_10_Adding_Field {
         public byte[] doInTransform(Instrumentor instrumentor, ClassLoader classLoader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws InstrumentException {
             InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
 
-            target.getDeclaredMethod("produce").addInterceptor("com.navercorp.pinpoint.plugin.sample._10_Adding_Field.ProducerInterceptor");
+            target.getDeclaredMethod("produce").addInterceptor(ProducerInterceptor.class);
     
             return target.toBytecode();
         }
@@ -52,7 +52,7 @@ public class Sample_10_Adding_Field {
         public byte[] doInTransform(Instrumentor instrumentor, ClassLoader classLoader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws InstrumentException {
             InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
 
-            target.getDeclaredMethod("consume", "com.navercorp.plugin.sample.target.TargetClass10_Message").addInterceptor("com.navercorp.pinpoint.plugin.sample._10_Adding_Field.ConsumerInterceptor");
+            target.getDeclaredMethod("consume", "com.navercorp.plugin.sample.target.TargetClass10_Message").addInterceptor(ConsumerInterceptor.class);
     
             return target.toBytecode();
         }
@@ -65,7 +65,7 @@ public class Sample_10_Adding_Field {
             InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
 
             // Add field to the message class. Note that you don't need to provide the field name. 
-            target.addField("com.navercorp.pinpoint.plugin.sample._10_Adding_Field.ProducerNameAccessor");
+            target.addField(ProducerNameAccessor.class);
 
             return target.toBytecode();
         }

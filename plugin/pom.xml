@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.navercorp.pinpoint</groupId>
         <artifactId>plugin-sample</artifactId>
-        <version>1.8.1-SNAPSHOT</version>
+        <version>1.9.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>plugin-sample-plugin</artifactId>
@@ -15,8 +15,9 @@
     <dependencies>
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
-            <artifactId>pinpoint-bootstrap</artifactId>
-            <version>${pinpoint.version}</version> 
+            <artifactId>pinpoint-bootstrap-core</artifactId>
+            <version>${pinpoint.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
@@ -42,6 +43,19 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Pinpoint-Plugin-Id>${project.groupId}:${project.artifactId}</Pinpoint-Plugin-Id>
+                            <Pinpoint-Plugin-Compiler-Version>${jdk.version}</Pinpoint-Plugin-Compiler-Version>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
             </plugin>
         </plugins>
     </build>    

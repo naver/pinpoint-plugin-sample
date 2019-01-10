@@ -41,7 +41,7 @@ public class Sample_01_Inject_BasicMethodInterceptor implements TransformCallbac
         InstrumentMethod targetMethod = target.getDeclaredMethod("targetMethod", "java.lang.String");
         
         // 3. Add interceptor. The first argument is FQN of the interceptor class, followed by arguments for the interceptor's constructor.
-        targetMethod.addInterceptor("com.navercorp.pinpoint.bootstrap.interceptor.BasicMethodInterceptor", va(SamplePluginConstants.MY_SERVICE_TYPE));
+        targetMethod.addInterceptor(BasicMethodInterceptor.class, va(SamplePluginConstants.MY_SERVICE_TYPE));
         
         // 4. Return resulting byte code.
         return target.toBytecode();

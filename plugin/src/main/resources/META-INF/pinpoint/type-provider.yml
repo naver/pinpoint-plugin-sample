@@ -1,0 +1,24 @@
+serviceTypes:
+    - code: 7500
+      name: 'PluginExample'
+      matcher:
+          type: 'exact'
+          code: 998
+    - code: 1900
+      name: 'SAMPLE_SERVER'
+      property:
+          recordStatistics: true
+    - code: 9901
+      name: 'SAMPLE_CLIENT'
+      property:
+          recordStatistics: true
+
+annotationKeys:
+    - code: 998
+      name: 'MyValue'
+    - code: 995
+      name: 'MY_ARGUMENT'
+    - code: 996
+      name: 'MY_PROCEDURE'
+    - code: 997
+      name: 'MY_RESULT'

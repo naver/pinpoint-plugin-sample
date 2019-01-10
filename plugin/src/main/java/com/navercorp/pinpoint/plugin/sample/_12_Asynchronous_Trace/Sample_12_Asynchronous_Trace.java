@@ -24,6 +24,7 @@ import com.navercorp.pinpoint.bootstrap.instrument.InstrumentMethod;
 import com.navercorp.pinpoint.bootstrap.instrument.Instrumentor;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformCallback;
 import com.navercorp.pinpoint.bootstrap.interceptor.AsyncContextSpanEventSimpleAroundInterceptor;
+import com.navercorp.pinpoint.bootstrap.interceptor.BasicMethodInterceptor;
 import com.navercorp.pinpoint.bootstrap.interceptor.scope.ExecutionPolicy;
 import com.navercorp.pinpoint.bootstrap.interceptor.scope.InterceptorScope;
 import com.navercorp.pinpoint.plugin.sample.SamplePluginConstants;
@@ -63,7 +64,7 @@ public class Sample_12_Asynchronous_Trace {
 
             InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
             InstrumentMethod targetMethod = target.getDeclaredMethod("asyncHello", "java.lang.String");
-            targetMethod.addScopedInterceptor("com.navercorp.pinpoint.plugin.sample._12_Asynchronous_Trace.AsyncInitiatorInterceptor", scope);
+            targetMethod.addScopedInterceptor(AsyncInitiatorInterceptor.class, scope);
 
             return target.toBytecode();
         }
@@ -77,13 +78,13 @@ public class Sample_12_Asynchronous_Trace {
             InterceptorScope scope = instrumentor.getInterceptorScope(SCOPE_NAME);
             
             InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
-            target.addField(AsyncContextAccessor.class.getName());
+            target.addField(AsyncContextAccessor.class);
             
             InstrumentMethod constructor = target.getConstructor("java.lang.String", "com.navercorp.plugin.sample.target.TargetClass12_Future");
-            constructor.addScopedInterceptor("com.navercorp.pinpoint.plugin.sample._12_Asynchronous_Trace.WorkerConstructorInterceptor", scope, ExecutionPolicy.INTERNAL);
+            constructor.addScopedInterceptor(WorkerConstructorInterceptor.class, scope, ExecutionPolicy.INTERNAL);
             
             InstrumentMethod run = target.getDeclaredMethod("run");
-            run.addInterceptor("com.navercorp.pinpoint.plugin.sample._12_Asynchronous_Trace.WorkerRunInterceptor");
+            run.addInterceptor(WorkerRunInterceptor.class);
 
             return target.toBytecode();
         }
@@ -96,7 +97,7 @@ public class Sample_12_Asynchronous_Trace {
             InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
             
             InstrumentMethod get = target.getDeclaredMethod("get");
-            get.addInterceptor("com.navercorp.pinpoint.bootstrap.interceptor.BasicMethodInterceptor", va(SamplePluginConstants.MY_SERVICE_TYPE));
+            get.addInterceptor(BasicMethodInterceptor.class, va(SamplePluginConstants.MY_SERVICE_TYPE));
 
             return target.toBytecode();
         }

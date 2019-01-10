@@ -54,7 +54,7 @@ public class Sample_11_Configuration_And_ObjectRecipe implements TransformCallba
         // targetMethod.addInterceptor("com.navercorp.pinpoint.plugin.sample._11_Configuration_And_ObjectRecipe.HelloInterceptor", new StringTrimmer(maxLen));
         
         ObjectFactory trimmerFactory = ObjectFactory.byConstructor("com.navercorp.pinpoint.plugin.sample._11_Configuration_And_ObjectRecipe.StringTrimmer", maxLen);
-        targetMethod.addInterceptor("com.navercorp.pinpoint.plugin.sample._11_Configuration_And_ObjectRecipe.HelloInterceptor", new Object[] { trimmerFactory });
+        targetMethod.addInterceptor(HelloInterceptor.class, new Object[] { trimmerFactory });
 
         return target.toBytecode();
     }

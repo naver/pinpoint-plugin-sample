@@ -34,7 +34,7 @@ public class Sample_14_RPC_Server implements TransformCallback {
     public byte[] doInTransform(Instrumentor instrumentor, ClassLoader classLoader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws InstrumentException {
         InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
 
-        target.getDeclaredMethod("process", "com.navercorp.plugin.sample.target.TargetClass14_Request").addInterceptor("com.navercorp.pinpoint.plugin.sample._14_RPC_Server.ProcessInterceptor");
+        target.getDeclaredMethod("process", "com.navercorp.plugin.sample.target.TargetClass14_Request").addInterceptor(ProcessInterceptor.class);
 
         return target.toBytecode();
     }
