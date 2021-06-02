@@ -1,15 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <parent>
         <groupId>com.navercorp.pinpoint</groupId>
-        <artifactId>plugin-sample</artifactId>
-        <version>2.0.3</version>
+        <artifactId>sample-pinpoint</artifactId>
+        <version>2.3.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>plugin-sample-agent</artifactId>
-    <name>Pinpoint Plugin Sample Agent Distribution</name>
+    <artifactId>sample-pinpoint-agent</artifactId>
+    <name>sample-pinpoint-agent</name>
     <packaging>jar</packaging>
 
     <properties>
@@ -20,121 +20,86 @@
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
             <artifactId>pinpoint-annotations</artifactId>
-            <version>${pinpoint.version}</version>
         </dependency>
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
             <artifactId>pinpoint-profiler</artifactId>
-            <version>${pinpoint.version}</version>
         </dependency>
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
             <artifactId>pinpoint-profiler-test</artifactId>
-            <version>${pinpoint.version}</version>
         </dependency>
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
             <artifactId>pinpoint-profiler-optional</artifactId>
-            <version>${pinpoint.version}</version>
-            <scope>runtime</scope>
             <type>pom</type>
+            <scope>runtime</scope>
         </dependency>
-
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
-            <artifactId>plugin-sample-plugin</artifactId>
-            <version>${pinpoint.version}</version>
+            <artifactId>pinpoint-bootstraps</artifactId>
+            <type>pom</type>
             <scope>runtime</scope>
         </dependency>
 
+        <!-- agent plugins -->
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
-            <artifactId>pinpoint-bootstrap-java7</artifactId>
-            <version>${pinpoint.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.navercorp.pinpoint</groupId>
-            <artifactId>pinpoint-bootstrap-java8</artifactId>
-            <version>${pinpoint.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.navercorp.pinpoint</groupId>
-            <artifactId>pinpoint-bootstrap-java9</artifactId>
-            <version>${pinpoint.version}</version>
+            <artifactId>pinpoint-agent-plugins</artifactId>
+            <type>pom</type>
             <scope>runtime</scope>
         </dependency>
 
-        <!-- for tests -->
+        <!-- plug-ins -->
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
-            <artifactId>pinpoint-test</artifactId>
-            <version>${pinpoint.version}</version>
-            <scope>test</scope>
+            <artifactId>pinpoint-plugins-assembly</artifactId>
+            <type>pom</type>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.navercorp.pinpoint</groupId>
-            <artifactId>plugin-sample-target</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
+            <artifactId>sample-pinpoint-plugins-assembly</artifactId>
+            <type>pom</type>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- tools -->
+        <dependency>
+            <groupId>com.navercorp.pinpoint</groupId>
+            <artifactId>pinpoint-tools</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>${basedir}/src/main/java</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <filtering>true</filtering>
-                <directory>${basedir}/src/main/resources</directory>
-            </resource>
-            <resource>
-                <directory>${basedir}/src/main/resources-${env}</directory>
-            </resource>
-        </resources>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.18.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <!-- AbstractPinpointPluginTestSuite needs this to resolve path of required jars -->
-                    <useSystemClassLoader>false</useSystemClassLoader>
-                    <failIfNoTests>true</failIfNoTests>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.5.3</version>
                 <configuration>
-                    <descriptors>
-                        <descriptor>src/assembly/distribution.xml</descriptor>
-                    </descriptors>
                     <outputDirectory>${project.build.directory}</outputDirectory>
+                    <finalName>pinpoint-agent-${project.version}</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>create-distribution</id>
+                        <id>local-distribution</id>
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/assembly/local/assembly.xml</descriptor>
+                            </descriptors>
+                            <filters>
+                                <filter>src/assembly/local/filter.properties</filter>
+                            </filters>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <attach>false</attach>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
