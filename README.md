@@ -1,11 +1,17 @@
 # Pinpoint Profiler Plugin Sample
 
-You can extend Pinoint's profiling ability by writing a Pinpoint profiler plugin. This sample project shows how to write it. It consists of 3 modules:
+You can extend Pinoint's profiling ability by writing a Pinpoint profiler plugin. This sample project shows how to write it. It consists of 7 modules:
 
-* plugin-sample-target: target library
-* plugin-sample-plugin: sample plugin
-* plugin-sample-agent: agent distribution with sample plugin
-
+* sample-pinpoint-plugin-target: target library
+* sample-pinpoint-plugins: sample plugin
+  * sample-pinpoint-plugin
+* sample-pinpoint-plugins-it
+  * sample-pinpoint-plugin-it
+* sample-pinpoint-agent: agent distribution with sample plugin
+* sample-pinpoint-agent-testweb
+  * sample-pinpoint-plugin-testweb
+* sample-pinpoint-collector
+* sample-pinpoint-web
 
 # Implementing a Profiler Plugin
 A Pinpoint profiler plugin have to provide implementations of [ProfilerPlugin](https://github.com/naver/pinpoint/blob/master/bootstrap-core/src/main/java/com/navercorp/pinpoint/bootstrap/plugin/ProfilerPlugin.java) and [TraceMetadataProvider](https://github.com/naver/pinpoint/blob/master/commons/src/main/java/com/navercorp/pinpoint/common/trace/TraceMetadataProvider.java)
